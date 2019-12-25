@@ -127,3 +127,16 @@ Find who is the depth folder in folder tree?
 	
 	awk 'BEGIN { FS = "," } ;(NR==1){Max=$3;line=""};(NR>=2){if(Max<$3) {Max=$3;line=$0}} END {print "The Max is:",Max,line}' reoprt.csv
 
+Find date filed in report how to get information of date and time?
+	
+	time awk -v max=0 'BEGIN { FS = "," } ;{if($3>max){want=$0; max=$3}}END{print max,want} ' report.csv
+	
+	
+
+	awk -v max=0 'BEGIN { FS = "," } ;{if ($15=strftime("%Y-%m-%d %H:%M:%S") > ("2019-12-25 16:25:49")){print $0}} ' report.csv
+ 	awk -v max=0 'BEGIN { FS = "," } ;{if ($15=strftime("%Y-%m-%d %") > ("2019-12-25")){print $0}} ' report.csv
+  
+	awk -F"," '{OFS=","; $15=strftime("%Y-%m-%d %H:%M:%S", $15); print $0}' report.csv
+ 	awk -F"," '{OFS=","; $15=strftime("%Y-%m-%d", $15); print $0}' report.csv
+
+
