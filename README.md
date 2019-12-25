@@ -124,4 +124,6 @@ Hi My name is Benor Or Linux administrator and I need the pwalk in order to know
 Find who is the depth folder in folder tree?
 	
 	time awk -v max=0 'BEGIN { FS = "," } ;{if($3>max){want=$0; max=$3}}END{print max,want} ' report.csv
+	
+	awk 'BEGIN { FS = "," } ;(NR==1){Max=$3;line=""};(NR>=2){if(Max<$3) {Max=$3;line=$0}} END {print "The Max is:",Max,line}' bioinformatics-report-root.csv
 
