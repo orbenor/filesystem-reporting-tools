@@ -118,3 +118,10 @@ the days of VAXes and BSD 4.2.  I have been privileged to support scientific
 researchers and their data since the mid 1990’s.  I hope you will find pwalk 
 to be useful. 
 
+### Fork commnet ###
+Hi My name is Benor Or Linux administrator and I need the pwalk in order to know about storages..
+
+Find who is the depth folder in folder tree?
+	
+	time awk -v max=0 'BEGIN { FS = "," } ;{if($3>max){want=$0; max=$3}}END{print max,want} ' report.csv
+
