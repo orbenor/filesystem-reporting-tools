@@ -139,4 +139,55 @@ Find date filed in report how to get information of date and time?
 	awk -F"," '{OFS=","; $15=strftime("%Y-%m-%d %H:%M:%S", $15); print $0}' report.csv
  	awk -F"," '{OFS=","; $15=strftime("%Y-%m-%d", $15); print $0}' report.csv
 
+	sqlite> SELECT datetime(1552500253, 'unixepoch');
+2019-03-13 18:04:13
+
+sqlite> SELECT *  from itable  WHERE datetime(st_atime, 'unixepoch') BETWEEN  '2001-02-13 19:04:13' and '2019-03-13 18:04:13';
+268525701|268435459|0|/gpfs/units/it//._.DS_Store|DS_Store|10575|10000|4096|51|1024|1|0100770|1552500253|1475060440|1564909551|-1|0
+268667359|268435459|0|/gpfs/units/it//._Symantec Uninstaller.app|app|10575|10000|4096|51|1024|1|0100770|1550147199|1520952066|1564909552|-1|0
+268556359|268435459|0|/gpfs/units/it//MediaID.bin|bin|10575|10000|528|51|1|1|0100775|1550147199|1485957440|1564908933|-1|0
+268660875|268435459|0|/gpfs/units/it//._.TemporaryItems|TemporaryItems|10612|10000|4096|51|1024|1|0100770|1552500253|1519309323|1564909551|-1|0
+
+SELECT inode,datetime (st_mtime, 'unixepoch') , datetime(st_ctime, 'unixepoch' ),st_dev   AS isodate from itable;
+
+
+SELECT inode,datetime (st_mtime, 'unixepoch') , datetime(st_ctime, 'unixepoch' ),datetime(st_atime, 'unixepoch'),st_dev  AS isodate from itable WHERE datetime(st_mtime, 'unixepoch') BETWEEN  '2016-02-13 19:04:13' and '2017-12-13 18:04:13';
+268525701|2016-09-28 11:00:40|2019-08-04 09:05:51|2019-03-13 18:04:13|51
+268556359|2017-02-01 13:57:20|2019-08-04 08:55:33|2019-02-14 12:26:39|51
+
+sqlite> SELECT filename, date(st_atime, 'unixepoch') AS isodate from itable ;
+/gpfs/units/it//AcronisBackup_12.5_64-bit (1).x86_64|2019-12-01
+/gpfs/units/it//._.DS_Store|2019-03-13
+/gpfs/units/it//install_eav.bat|2019-08-08
+/gpfs/units/it//a.txt|2019-07-24
+/gpfs/units/it//MDCStoreUtils API Readme.doc|2019-12-01
+/gpfs/units/it//._Symantec Uninstaller.app|2019-02-14
+/gpfs/units/it//test_file_to_delete_itzik.txt|2019-09-19
+/gpfs/units/it//MediaID.bin|2019-02-14
+/gpfs/units/it//._.TemporaryItems|2019-03-13
+
+
+
+sqlite> SELECT inode,date (st_mtime, 'unixepoch') , date(st_ctime, 'unixepoch' ),date(st_atime, 'unixepoch'),st_dev  AS isodate from itable WHERE datetime(st_mtime, 'unixepoch') BETWEEN  '2016-02-13' and '2017-12-13';
+268525701|2016-09-28|2019-08-04|2019-03-13|51
+268556359|2017-02-01|2019-08-04|2019-02-14|51
+
+sqlite> SELECT inode,date (st_mtime, 'unixepoch') , date(st_ctime, 'unixepoch' ),date(st_atime, 'unixepoch'),st_dev  AS date from itable WHERE datetime(st_mtime, 'unixepoch') BETWEEN  '2016' and '2018';
+268525701|2016-09-28|2019-08-04|2019-03-13|51
+268556359|2017-02-01|2019-08-04|2019-02-14|51
+
+1336  29/12/19 17:27:30 sqlite3 tt ".mode csv"
+ 1337  29/12/19 17:27:43 sqlite3 tt ".import csv"
+ 1338  29/12/19 17:28:26 sqlite3 tt  "it-report-root.csv itreport "
+ 1339  29/12/19 17:28:37 sqlite3 tt  "import it-report-root.csv itreport "
+ 1340  29/12/19 17:28:43 sqlite3 tt  ".import it-report-root.csv itreport "
+ 1341  29/12/19 17:31:30 sqlite3 tt  "select count(*) from itreport;"
+ 1342  29/12/19 17:31:50 time wc -l it-report-root.csv
+ 1343  29/12/19 17:31:57 time sqlite3 tt  "select count(*) from itreport;"
+
+
+
+
+
+
 
