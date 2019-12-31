@@ -184,6 +184,41 @@ sqlite> SELECT inode,date (st_mtime, 'unixepoch') , date(st_ctime, 'unixepoch' )
  1341  29/12/19 17:31:30 sqlite3 tt  "select count(*) from itreport;"
  1342  29/12/19 17:31:50 time wc -l it-report-root.csv
  1343  29/12/19 17:31:57 time sqlite3 tt  "select count(*) from itreport;"
+ 
+ 
+ 	sqlite> SELECT strftime('%Y', st_mtime, 'unixepoch'), sum(st_size)/1024/1024/1024/1024 FROM bioinformatics30122019 GROUP by strftime('%Y', st_mtime, 'unixepoch' ); SELECT sum(st_size)/1024/1024/1024/1024," TB" from bioinformatics30122019 ;
+	1970                            0
+	1992                            0
+	1993                            0
+	1994                            0
+	1995                            0
+	1996                            0
+	1997                            0
+	1998                            0
+	1999                            0
+	2000                            0
+	2001                            0
+	2002                            0
+	2003                            0
+	2004                            0
+	2005                            0
+	2006                            0
+	2007                            0
+	2008                            1
+	2009                            4
+	2010                            9
+2011                            14
+2012                            27
+2013                            43
+2014                            29
+2015                            77
+2016                            65
+2017                            57
+2018                            39
+2019                            68
+438                              TB
+
+
 
 
 
